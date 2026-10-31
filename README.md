@@ -1,13 +1,13 @@
 # mydjango
 
-Django 部落格練習專案：文章列表與文章详情页，外加 Django admin 後台。
+Django 部落格練習專案：文章列表與文章詳情頁，另有 Django admin 後台。
 
 ## 專案結構
 
 ```
 mydjango/
-├── pyproject.toml      # uv 專案設定（Python 3.10，Django 5.2）
-├── main.py             # 佔檔腳本，不是進入口
+├── pyproject.toml      # uv 專案設定（Python 3.10、Django 5.2）
+├── main.py             # 佔位腳本，不是執行進入點
 └── mblog/              # Django 專案
     ├── manage.py
     ├── mblog/          # 專案設定（settings / urls / wsgi / asgi）
@@ -27,13 +27,13 @@ mydjango/
 | `body` | `TextField` |
 | `pub_date` | `DateTimeField(auto_now_add=True)` |
 
-依 `pub_date` 由新到舊排序。
+預設依 `pub_date` 由新到舊排序。
 
 ## 路由
 
 | 路徑 | 視圖 | 說明 |
 | --- | --- | --- |
-| `` | `homepage` | 列出所有文章 |
+| `/` | `homepage` | 列出所有文章 |
 | `post/<slug:slug>/` | `showpost` | 單篇文章（找不到就轉回首頁） |
 | `admin/` | Django admin | 後台 |
 
@@ -50,18 +50,19 @@ uv run python manage.py createsuperuser
 uv run python manage.py runserver
 ```
 
-開 `http://127.0.0.1:8000/`，後台在 `/admin/`。
+ opening 位置：`http://127.0.0.1:8000/`，後台在 `/admin/`。
 
 ## 部署
 
-`gunicorn` 與 `whitenoise` 已在依賴裡：
+`gunicorn` 與 `whitenoise` 已在依賴清單中：
 
 ```bash
-uv run python mblog/manage.py collectstatic --noinput
-uv run gunicorn mblog.wsgi:application   # 於 mblog/ 目錄執行
+# 於 mblog/ 執行
+uv run python manage.py collectstatic --noinput
+uv run gunicorn mblog.wsgi:application
 ```
 
 ## 注意事項
 
-- `settings.py` 目前為 `DEBUG = True`、`ALLOWED_HOSTS = ["*"]`，上線前务必改掉。
-- `db.sqlite3` 與 `__pycache__/*.pyc` 已被提交进 repo，建議加进 `.gitignore` 並从版本控制移除。
+- `settings.py` 目前是 `DEBUG = True` 且 `ALLOWED_HOSTS = ["*"]`，上線前務必改掉。
+- `db.sqlite3` 與 `__pycache__/*.pyc` 已被提交進 repo，建議加進 `.gitignore` 並從版本控制移除。
