@@ -50,7 +50,7 @@ uv run python manage.py createsuperuser
 uv run python manage.py runserver
 ```
 
- opening 位置：`http://127.0.0.1:8000/`，後台在 `/admin/`。
+啟動後開 `http://127.0.0.1:8000/`，後台在 `/admin/`。
 
 ## 部署
 
